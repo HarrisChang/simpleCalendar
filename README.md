@@ -7,9 +7,14 @@
 
 仿携程查询最近90天的机票价格**弹框**(显示最近90天的日历及当天价格)；
 
+![90days_calendar](https://raw.githubusercontent.com/HarrisChang/MarkDownImages/master/simple_calendar_90days_alert.png)
+
  - demo02
 
 仿携程查询最近90天的机票价格**时间轴**(显示最近90天的日历及当天价格)；
+
+![90days_calendar2](https://raw.githubusercontent.com/HarrisChang/MarkDownImages/master/simple_calendar_90days_timeline.png)
+
 
  - demo03
 
