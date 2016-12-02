@@ -239,6 +239,7 @@ h3{
     top: 50%;
     margin: -220px 0 0 -345px;
     z-index: 11;
+    display: none;
 }
 
 .demo1 .lowest-price-container .title{
