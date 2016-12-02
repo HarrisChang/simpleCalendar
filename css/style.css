@@ -71,6 +71,17 @@ header{
     height: 50px;
 }
 
+.mask{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+}
+
 .container{
     width: 1000px;
     margin: 0 auto;
@@ -113,9 +124,14 @@ h3{
     color: #0066CC;
 }
 
-.demo1 a.prev_date i.disabled,
-.demo1 a.next_date i.disabled{
-    color: #ccc;
+.demo1 a.prev_date.unable,
+.demo1 a.next_date.unable{
+    cursor: default;
+}
+
+.demo1 a.prev_date.unable i,
+.demo1 a.next_date.unable i{
+    color: #CCC;
 }
 
 .demo1 .calendar-tab .iconfont{
@@ -127,6 +143,14 @@ h3{
     height: 50px;
     overflow: hidden;
     float: left;
+    position: relative;
+}
+
+.demo1 .lowest-price-lists{
+    width: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .demo1 .lowest-price-lists li{
@@ -135,10 +159,15 @@ h3{
     line-height: 50px;
     text-align: center;
     float: left;
+    cursor: pointer;
     border-right: 1px solid #ccc;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+}
+
+.demo1 .lowest-price-lists li:hover{
+    background-color: #5D9FFB;
 }
 
 .demo1 .lowest-price-lists a{
@@ -178,6 +207,7 @@ h3{
     padding: 5px 20px;
     font-size: 14px;
     float: left;
+    cursor: pointer;
 }
 
 .demo1 .lowest-price i{
@@ -196,4 +226,112 @@ h3{
     width: 60px;
     line-height: 20px;
     color: #0066CC;
+}
+
+.demo1 .lowest-price-container{
+    width: 640px;
+    height: 390px;
+    padding: 15px;
+    border: 10px solid #BDBDBD;
+    background-color: #fafafa;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -220px 0 0 -345px;
+    z-index: 11;
+}
+
+.demo1 .lowest-price-container .title{
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.demo1 .lowest-price-container .close-ico{
+    float: right;
+    width: 16px;
+    height: 16px;
+    background: url("../image/close-ico.png") no-repeat center;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+.demo1 .calendar-panel{
+    width: 640px;
+    height: 351px;
+    padding-top: 5px;
+}
+
+.demo1 .calendar-panel .calendar-container{
+    float: left;
+    width: 555px;
+    height: 328px;
+}
+
+.demo1 .calendar-panel .month-info{
+    width: 85px;
+    float: right;
+    padding: 15px 0;
+}
+
+.demo1 .calendar-panel .month_btn{
+    display: block;
+    height: 36px;
+    width: 36px;
+    text-align: center;
+    line-height:36px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid #0066CC;
+    margin-left: 22px;
+}
+
+.demo1 .calendar-panel .next_month{
+    margin-top: 160px;
+}
+
+.demo1 .month_btn.unable{
+    border-color: #ccc;
+    cursor: default;
+}
+
+.demo1 .month_btn.unable i.iconfont{
+    color: #ccc;
+}
+
+.demo1 .calendar-panel i.iconfont{
+    font-size: 32px;
+    font-weight: bold;
+    color: #0066CC;
+}
+
+.demo1 .calendar-panel .year-selected{
+    display: inline-block;
+    width: 85px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 6px;
+    color: #B4B4B4;
+}
+
+.demo1 .calendar-panel .month-selected{
+    display: inline-block;
+    width: 85px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.demo1 .flight-info{
+    width: 800px;
+    height: 300px;
+    padding: 50px;
+    font-size: 30px;
+    background-color: #ccc;
 }

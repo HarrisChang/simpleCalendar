@@ -1,30 +1,23 @@
 //获取当前日期前后N天的日期
-function GetDateStr(AddDayCount) {
-	var dd = new Date();
-	dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期
-	var y = dd.getFullYear();
-	var m = dd.getMonth() + 1; //获取当前月份的日期
-	var d = dd.getDate(); //获取当前几号
-	return d + "/" + m;
+function getDateStr(addDayCount){
+    var dd = new Date();
+    dd.setDate(dd.getDate() + addDayCount);  //获取addDayCount天后的日期
+    var weekDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    var y = dd.getFullYear();  //获取彼时的年份
+    var m = dd.getMonth() + 1;  //获取彼时的月份
+    var d = dd.getDate();  //获取彼时的日期
+    var w = dd.getDay();  //获取彼时的星期
+    return y + "/" + m + "/" + d + "/" + weekDays[w];
 };
 
-//获取当前日期前后N天为星期几
-function GetDayStr(AddDayCount) {
-    var dd = new Date();
-    var weekDays = ["日", "一", "二", "三", "四", "五", "六"];
-    dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
-    var w = dd.getDay();
-    return weekDays[w];
-};
 
 //判断是否为闰年
-function is_leap(year){
-	//闰年的条件是复合下面二者之一：
-	//1.年份能被4整除，但不能被100整除；
-	//2.年份能被400整除
-	if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)){
-		return 1;
-	}
-	return 0;
-}
-
+function isLeap(year) {
+    //闰年的条件是符合下面二者之一：
+    // 1.年份能被4整除，但不能被100整除；
+    // 2.年份能被400整除。
+    if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) ){
+        return 1;
+    }
+    return 0;
+};

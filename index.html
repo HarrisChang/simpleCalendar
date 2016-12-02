@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -10,9 +9,9 @@
 	<header></header>
 	<div class="container">
 		<div class="demo1">
-			<h3>一、仿携程显示最近90天的日历_时间轴</h3>
+			<h3>一、仿携程显示最近90天的机票信息</h3>
 			<div class="calendar-tab">
-				<a href="javascript:;" class="prev_date"><i class="iconfont icon-left">&#xe697;</i></a>
+				<a href="javascript:;" class="prev_date unable"><i class="iconfont icon-left unable">&#xe697;</i></a>
 				<div class="calendar-tab-list">
 					<ul class="lowest-price-lists">
 						<li>
@@ -66,12 +65,31 @@
 					</ul>
 				</div>
 				<a href="javascript:;" class="next_date"><i class="iconfont icon-right">&#xe6a7;</i></a>
-				<div class="lowest-price">
+				<a class="lowest-price">
 					<i class="iconfont icon-calendar">&#xe6bf;</i><span>查看90天最低价</span>
+				</a>
+				<div class="lowest-price-container">
+					<div class="title">选择优惠机票 <em class="close-ico"></em></div>
+					<div class="calendar-panel">
+						<div class="calendar-container">
+
+						</div>
+						<div class="month-info">
+							<a href="javascript:;" class="prev_month month_btn unable"><i class="iconfont icon-up">&#xe6a5;</i></a>
+							<span class="year-selected">2016年</span>
+							<span class="month-selected">12月</span>
+							<a href="javascript:;" class="next_month month_btn"><i class="iconfont icon-down">&#xe6a6;</i></a>
+						</div>
+					</div>
 				</div>
+			</div>
+			<div class="flight-info">
+				显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息显示选定日期的信息
 			</div>
 		</div>
 	</div>
+	<div class="mask"></div>
+
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="./js/date.js"></script>
 	<script src="js/calendar01.js"></script>
