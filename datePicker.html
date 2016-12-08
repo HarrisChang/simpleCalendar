@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/date.css">
+    <title>Title</title>
+</head>
+<body>
+    <div class="iptgroup">
+        <input type="text" placeholder="入住日期" readonly="readonly" value="" placeholder="yyyy/mm/dd" name="check_in" class="doubledate check_in" autocomplete="off" doubledate="first" tabindex="2" />
+        <input type="text" placeholder="离店日期" readonly="readonly" value="" placeholder="yyyy/mm/dd" name="check_out" class="doubledate check_out" autocomplete="off" doubledate="last" tabindex="3" />
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/date.js"></script>
+    <script>
+        //日曆插件
+        $(function () {
+            var nowDate = GetDateStr(new Date(), 3);
+            $('.doubledate').kuiDate({
+                className: 'doubledate',
+                minDate: nowDate
+            });
+            $(".check_in").val(nowDate);
+            $(".check_out").val(GetDateStr(new Date(), 5));
+        });
+    </script>
+</body>
+</html>
