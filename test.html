@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        /* 机票列表页弹框最近90天机票样式 */
+        .calendar_a_box .calendar_box { width: 800px; height: 470px; padding: 5px 0; position: relative; overflow: hidden; }
+        .calendar_a_box .calendar_box ul { padding: 0; height: 430px; position: absolute; left: 0; top: 0; }
+        .calendar_a_box .calendar_box li { float: left; list-style: none; width: 800px; height: 430px; }
+        .calendar_a_box .calendar_box p { height: 40px; line-height: 40px; font-size: 16px; text-align: center; margin: 0; }
+        .calendar_a_box .calendar_box table { width: 800px; height: 430px; }
+        .calendar_a_box .calendar_box th { height: 40px; width: 800px; text-align: center; font-size: 18px; font-weight: normal; }
+        .calendar_a_box .calendar_box button { position: absolute; top: 2px; }
+        .calendar_a_box .calendar_box .fl { left: 10px; }
+        .calendar_a_box .calendar_box .fr { right: 10px; }
+        .calendar_a_box .calendar_box td { text-align: center; border: 1px solid #FFFFFF; height:60px;}
+        .calendar_a_box .calendar_box .valids { background-color: #ececec; cursor: pointer; }
+        .calendar_a_box .calendar_box .valids:hover { background-color: #b3ddf0; }
+        .calendar_a_box .calendar_box .invalids { color: #DBDBDB; background-color: #f7f7f7; }
+
+
+        .light_yellow { background-color: #fbd700; }
+
+        .newsCenter #div_contents em { font-style: normal; background-color: #fbd700; }
+
+        .commonissues-select .select-option a,
+        .commonissues-select .diy_select_txt a { width: inherit; height: inherit; line-height: inherit; padding-left: 0; }
+        em.close-ico { cursor: pointer; }
+        em.depart_destination_ico { width:21px; height:21px; background-position:-56px -815px; vertical-align:-4px; margin-right:20px;}
+        em.depart-days-ico { width:21px; height:21px; background-position:-95px -786px; vertical-align:-4px; margin-right:5px;}
+    </style>
+    <title>test calendar</title>
+</head>
+<body>
+    <div class="dates"><input type="text" class="dates-in" value="2016-11-10"/><input type="button" class="dates-btn" value="按钮"></div>
+    <div class="calendar_box">
+        <ul></ul>
+        <button class="pre_month fl">上一月</button>
+        <button class="next_month fr">下一月</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        var dd = new Date(),firstYear, firstMonth, firstDate, firstDay,
+            weekDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+            appointedDate = "2016-12-08",
+            ms = getDateFromCurrentDate(appointedDate,-45).split("-")[4];
+
+        //获取第一天的日期信息
+        if( ms > 0 ){
+            firstYear = getDateFromCurrentDate(appointedDate,-45).split("-")[0];
+            firstMonth = getDateFromCurrentDate(appointedDate,-45).split("-")[1] - 1;
+            firstDate = getDateFromCurrentDate(appointedDate,-45).split("-")[2];
+            firstDay = getDateFromCurrentDate(appointedDate,-45).split("-")[3];
+        }else{
+            //获取当前日期信息
+            firstYear = dd.getFullYear();
+            firstMonth = dd.getMonth();  //从Date对象返回月份(0~11)
+            firstDate = dd.getDate();  //返回一个月中的某一天(0~31)
+            firstDay = weekDays[dd.getDay()];  //返回的是0~6(周日到周六)之间的一个整数
+        };
+        //获取最后一天的日期信息
+        var finalYear = getDateFromCurrentDate(appointedDate,45).split("-")[0];
+            finalMonth = getDateFromCurrentDate(appointedDate,45).split("-")[1] - 1;
+            finalDate = getDateFromCurrentDate(appointedDate,45).split("-")[2];
+            finalDay = getDateFromCurrentDate(appointedDate,45).split("-")[3];
+
+        //计算90天包含的月份个数
+        var month_num = 0;
+        if( finalMonth - firstMonth == 2 || (13 - firstMonth + finalMonth == 2)){
+            console.log(firstYear + "-" + firstMonth + "-" + firstDate);
+            console.log(finalYear + "-" + finalMonth + "-" + finalDate);
+            createFirstMonth(firstYear, firstMonth, firstDate);
+            createLastMonth(finalYear, finalMonth, finalDate);
+            month_num = 2;
+        }else if(finalMonth - firstMonth > 2){
+            createFirstMonth(firstYear, firstMonth, firstDate);
+            month_num = finalMonth - firstMonth + 1;
+            for(var i = ++firstMonth; i < finalMonth; i++){
+                createCalendar(firstYear, i, firstDate);
+            };
+            createLastMonth(finalYear, finalMonth, finalDate);
+        }else{
+            month_num = 13 - firstMonth + finalMonth;
+            createFirstMonth(firstYear, firstMonth, firstDate);
+            for(var i  = ++firstMonth; i <= 11; i++){
+                createCalendar(firstYear, i, firstDate);
+            };
+            for(var j = 0; j < finalMonth; j++){
+                createCalendar(finalYear, j, finalDate);
+            };
+            createLastMonth(finalYear, finalMonth, finalDate);
+        }
+        function getDateFromCurrentDate(fromDate,dayInterval){
+            var fromTime = Date.parse(fromDate.replace(/-/g,"/"));  //获取1970-1-1距离指定日期的毫秒数
+            var curTime = new Date().getTime();  //获取1970-1-1距离当前日期的毫秒数
+            var ms;
+            if(fromTime - curTime - 45*24*60*60*1000 > 0){
+                ms = 1;
+            }else{
+                ms = 0;
+            };
+            var fromDate = new Date(fromTime);
+            fromDate.setDate(fromDate.getDate()+dayInterval);
+            var year = fromDate.getFullYear();
+            var month = (fromDate.getMonth()+1)<10?"0"+(fromDate.getMonth()+1):(fromDate.getMonth()+1);
+            var date = fromDate.getDate()<10?"0"+fromDate.getDate():fromDate.getDate();
+            var day = weekDays[fromDate.getDay()];
+            return year + "-" + month + "-" + date + "-" + day + "-" + ms;
+        };
+
+
+        //创建第一个月的日历
+        function createFirstMonth(y, m, d){
+            var first_date = new Date(y, m, 1);  //获取该月第一天的信息
+            var week = first_date.getDay();  //获取该月第一天为星期几
+            var days_of_month = new Array(31, 28 + is_leap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); //各月的总天数
+            var rows = Math.ceil((days_of_month[m] + week) / 7);
+            var table = "<li>";
+            table += "<p>" + y + "-" + (m + 1) + "</p>";
+            table += '<table id="table" width="708px;" cellpadding="5" cellspacing="1">';
+            table += "<thead><tr>";
+            //打印表头
+            table += "<th align='center'>日</th>";
+            table += "<th align='center'>一</th>";
+            table += "<th align='center'>二</th>";
+            table += "<th align='center'>三</th>";
+            table += "<th align='center'>四</th>";
+            table += "<th align='center'>五</th>";
+            table += "<th align='center'>六</th>";
+            table += "</tr></thead>";
+            //打印日期
+            var idx, date_str;
+            for (var i = 0; i < rows; i++) {
+                table += "<tr>";
+                for (var k = 0; k < 7; k++) { //表格每行的单元格
+                    idx = i * 7 + k, //单元格自然序列号
+                    date_str = idx - week + 1; //计算日期
+                    //过滤无效日期（小于等于零的、大于月总天数的）
+                    (date_str <= 0 || date_str > days_of_month[m]) ? date_str = "&nbsp;" : date_str = idx - week + 1;
+                    //table += "<td>" + date_str + "</td>";
+                    if(date_str == "&nbsp;"){
+                        table += "<td align='center'>" + "&nbsp;" + "</td>";
+                    }else{
+                        if(date_str < d){
+                            table += "<td align='center' class='invalids'>" + date_str + "</td>";
+                        }else{
+                            table += "<td align='center'>" + date_str + "</td>";
+                        }
+                    }
+                }
+                table += "</tr>"; //表格的行结束
+            }
+            table += "</table></li>"; //表格结束
+            $(".calendar_box ul").html($(".calendar_box ul").html() + table);
+        };
+
+        //创建最后一个月的日历
+        function createLastMonth(y, m, d) {
+            var first_date = new Date(y, m, 1); //获取该月第一天的信息
+            var week = first_date.getDay(); //获取该月第一天为星期几
+            var days_of_month = new Array(31, 28 + is_leap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); //各月的总天数
+            var rows = Math.ceil((days_of_month[m] + week) / 7);
+            var table = '<li>';
+            table += "<p>" + y + "-" + (m + 1) + "</p>";
+            table += '<table id="table" width="708px;" cellpadding="5" cellspacing="1">';
+            table += "<thead><tr>";
+            //打印表头
+            table += "<th align='center'>日</th>";
+            table += "<th align='center'>一</th>";
+            table += "<th align='center'>二</th>";
+            table += "<th align='center'>三</th>";
+            table += "<th align='center'>四</th>";
+            table += "<th align='center'>五</th>";
+            table += "<th align='center'>六</th>";
+            table += "</tr></thead>";
+
+            //打印日期
+            var idx, date_str;
+            for (var i = 0; i < rows; i++) {
+                table += "<tr>";
+                for (k = 0; k < 7; k++) { //表格每行的单元格
+                    idx = i * 7 + k; //单元格自然序列号
+                    date_str = idx - week + 1; //计算日期
+                    //过滤无效日期（小于等于零的、大于月总天数的）
+                    (date_str <= 0 || date_str > days_of_month[m]) ? date_str = "&nbsp;" : date_str = idx - week + 1;
+                    if (date_str == "&nbsp;") {
+                        table += "<td align='center'>" + "&nbsp;" + "</td>"
+                    } else {
+                        if (date_str > d) {
+                            table += "<td align='center' class='invalids'>" + date_str + "</td>"
+                        } else {
+                            table += "<td align='center'>" + date_str + "</td>"
+                        }
+                    }
+                }
+                table += "</tr>"; //表格的行结束
+            }
+            table += "</table></li>"; //表格结束
+            $(".calendar_box ul").html($(".calendar_box ul").html() + table);
+        }
+        //创建中间月份的日历
+        function createCalendar(y, m, d) {
+            var first_date = new Date(y, m, 1); //获取该月第一天的信息
+            var week = first_date.getDay(); //获取该月第一天为星期几
+            var days_of_month = new Array(31, 28 + is_leap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); //各月的总天数
+            var rows = Math.ceil((days_of_month[m] + week) / 7);
+            var table = '<li>';
+            table += "<p>" + y + "-" + (m + 1) + "</p>";
+            table += '<table id="table" width="708px;" cellpadding="5" cellspacing="1">';
+            table += "<thead><tr>";
+            //打印表头
+            table += "<th align='center'>日</th>";
+            table += "<th align='center'>一</th>";
+            table += "<th align='center'>二</th>";
+            table += "<th align='center'>三</th>";
+            table += "<th align='center'>四</th>";
+            table += "<th align='center'>五</th>";
+            table += "<th align='center'>六</th>";
+            table += "</tr></thead>";
+            var idx, date_str;
+            //打印日期
+            for (var i = 0; i < rows; i++) {
+                table += "<tr>";
+                for (k = 0; k < 7; k++) { //表格每行的单元格
+                    idx = i * 7 + k; //单元格自然序列号
+                    date_str = idx - week + 1; //计算日期
+                    //过滤无效日期（小于等于零的、大于月总天数的）
+                    console.log(date_str);
+                    (date_str <= 0 || date_str > days_of_month[m]) ? date_str = "&nbsp;" : date_str = idx - week + 1;
+                    table += "<td>" + date_str + "</td>";
+                }
+                table += "</tr>"; //表格的行结束
+            }
+            table += "</table></li>"; //表格结束
+            $(".calendar_box ul").html($(".calendar_box ul").html() + table);
+        };
+
+        //判断是否为闰年
+        function is_leap(year) {
+            //闰年的条件是符合下面二者之一：
+            // 1.年份能被4整除，但不能被100整除；
+            // 2.年份能被400整除。
+            if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) ){
+                return 1;
+            }
+            return 0;
+        };
+
+    </script>
+</body>
+</html>

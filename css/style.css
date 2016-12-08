@@ -264,7 +264,7 @@ h3{
     padding-top: 5px;
 }
 
-.demo1 .calendar-panel .calendar-container{
+.demo1 .calendar-panel .calendar_box{
     float: left;
     width: 555px;
     height: 328px;
@@ -336,3 +336,4 @@ h3{
     font-size: 30px;
     background-color: #ccc;
 }
+

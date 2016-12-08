@@ -1,6 +1,6 @@
 var dd = new Date(),
     weekDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-    //获取当期日期信息
+    //获取当前日期信息
     currentYear = dd.getFullYear(),
     currentMonth = dd.getMonth() + 1,  //从Date对象返回月份(0~11)
     currentDate = dd.getDate(),  //返回一个月中的某一天(0~31)
@@ -10,6 +10,11 @@ var dd = new Date(),
     finalMonth = getDateStr(90).split("/")[1],
     finalDate = getDateStr(90).split("/")[2],
     finalDay = getDateStr(90).split("/")[3];
+
+function initCalendar(){
+
+}
+
 
 //创建时间轴(横向显示)日历
 (function initialCalendar(addDayCount){
