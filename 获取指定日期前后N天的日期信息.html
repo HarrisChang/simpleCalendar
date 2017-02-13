@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>获取指定日期前后N天的日期信息</title>
+</head>
+<body>
+<script>
+    //获取当前日期前后N天的日期
+    function getDateStr(addDayCount) {
+        var dd = new Date();
+        dd.setDate(dd.getDate() + addDayCount);  //获取addDayCount天后的日期
+        var weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        var y = dd.getFullYear();  //获取彼时的年份
+        var m = dd.getMonth() + 1;  //获取彼时的月份
+        var d = dd.getDate();  //获取彼时的日期
+        var w = dd.getDay();  //获取彼时的星期
+        return y + "/" + m + "/" + d + "/" + weekDays[w];
+    };
+
+
+    //获取指定日期前后N天的日期
+    function getDateFromCurrentDate(fromDate, dayInterval) {
+        var curDate = new Date(Date.parse(fromDate.replace(/-/g, "/")));
+        curDate.setDate(curDate.getDate() + dayInterval);
+        var year = curDate.getFullYear();
+        var month = (curDate.getMonth() + 1) < 10 ? "0" + (curDate.getMonth() + 1) : (curDate.getMonth() + 1);
+        var day = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
+        return year + "-" + month + "-" + day;
+    };  //例如alert(getDateFromCurrentDate("2016-12-08",32));
+</script>
+</body>
+</html>
